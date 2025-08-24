@@ -1,350 +1,976 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="mediaqueries.css" />
-  </head>
-  <body>
+    <title>Alex Rakotomalala - Data Scientist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* GENERAL */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #1a1d29;
+            --secondary-dark: #252836;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --card-bg: #1e293b;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 29, 41, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        #desktop-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* HAMBURGER MENU */
+        #hamburger-nav {
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hamburger-menu {
+            position: relative;
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 24px;
+            width: 30px;
+            cursor: pointer;
+        }
+
+        .hamburger-icon span {
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .menu-links {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            width: 200px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-links.open {
+            max-height: 300px;
+        }
+
+        .menu-links li {
+            list-style: none;
+        }
+
+        .menu-links a {
+            display: block;
+            padding: 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .menu-links a:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* SECTIONS */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+            min-height: fit-content;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        /* PROFILE SECTION */
+        #profile {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            min-height: 90vh;
+            padding-top: 8rem;
+        }
+
+        .profile-content {
+            flex: 1;
+        }
+
+        .profile-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .profile-content .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .profile-content .description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        .profile-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .profile-image img {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-blue);
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+        }
+
+        /* BUTTONS */
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        /* SOCIAL LINKS */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        /* CARD STYLES */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-5px);
+        }
+
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        /* ABOUT SECTION */
+        #about .grid {
+            margin-top: 2rem;
+        }
+
+        .about-card h3 {
+            color: var(--accent-blue);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* EXPERIENCE SECTION */
+        .skill-category h3 {
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 0.5rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .skill-item .checkmark {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .skill-item .checkmark::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+        }
+
+        .skill-info h4 {
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .skill-info p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* VISUALISATIONS SECTION */
+        .visualizations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .visualization-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .visualization-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-5px);
+        }
+
+        .visualization-image {
+            width: 100%;
+            height: 250px;
+            background: var(--secondary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .visualization-content {
+            padding: 1.5rem;
+        }
+
+        .visualization-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .visualization-content p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* PROJECTS SECTION */
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-5px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: var(--secondary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .project-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border-radius: 0.5rem;
+        }
+
+        /* CONTACT SECTION */
+        .contact-container {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .contact-item:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .contact-item a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--secondary-dark);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: var(--text-muted);
+        }
+
+        /* RESPONSIVE */
+        @media screen and (max-width: 768px) {
+            #desktop-nav {
+                display: none;
+            }
+            
+            #hamburger-nav {
+                display: flex;
+            }
+
+            #profile {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .profile-content h1 {
+                font-size: 3rem;
+            }
+
+            .profile-image img {
+                width: 280px;
+                height: 280px;
+            }
+
+            .section-title h1 {
+                font-size: 2.5rem;
+            }
+
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            section {
+                padding: 4rem 1rem 2rem;
+            }
+        }
+
+        .hamburger-icon.open span:first-child {
+            transform: rotate(45deg) translate(10px, 5px);
+        }
+
+        .hamburger-icon.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-icon.open span:last-child {
+            transform: rotate(-45deg) translate(10px, -5px);
+        }
+    </style>
+</head>
+<body>
     <nav id="desktop-nav">
-      <div class="logo">Alex Rako</div>
-      <div>
+        <div class="logo">Alex Rako</div>
         <ul class="nav-links">
-          <li><a href="#about">À Propos</a></li>
-          <li><a href="#experience">Expérience</a></li>
-          <li><a href="#projects">Projets</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
-    <nav id="hamburger-nav">
-      <div class="logo">Alex R.</div>
-      <div class="hamburger-menu">
-        <div class="hamburger-icon" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="menu-links">
-          <li><a href="#about" onclick="toggleMenu()">À Propos</a></li>
-          <li><a href="#experience" onclick="toggleMenu()">Expérience</a></li>
-          <li><a href="#projects" onclick="toggleMenu()">Projets</a></li>
-          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-        </div>
-      </div>
-    </nav>
-    <section id="profile">
-      <div class="section__pic-container">
-        <img src="./assets/profile_pic.png" alt="Alex Rako profile picture" />
-      </div>
-      <div class="section__text">
-        <p class="section__text__p1"></p>
-        <h1 class="title">Alex Rakotomalala</h1>
-        <p class="section__text__p2">Data Scientist / Analyst</p>
-        <div class="btn-container">
-          <button
-            class="btn btn-color-2"
-            onclick="window.open('./assets/ALEX_RAKOTOMALALA_CV.pdf')"
-          >
-            Télecharger CV
-          </button>
-          <button class="btn btn-color-1" onclick="location.href='./#contact'">
-            Contact Info
-          </button>
-        </div>
-        <div id="socials-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="My LinkedIn profile"
-            class="icon"
-            onclick="location.href='https://www.linkedin.com/in/alexrakotomalala/'"
-          />
-          <img
-            src="./assets/github.png"
-            alt="My Github profile"
-            class="icon"
-            onclick="location.href='https://github.com/Rako75'"
-          />
-        </div>
-      </div>
-    </section>
-    <section id="about">
-      <p class="section__text__p1">En savoir plus</p>
-      <h1 class="title">À propos de moi</h1>
-      <div class="section-container">
-        <div class="section__pic-container">
-          <img
-            src="./assets/about-pic.jpg"
-            alt="Profile picture"
-            class="about-pic"
-          />
-        </div>
-        <div class="about-details-container">
-          <div class="about-containers">
-            <div class="details-container">
-              <img
-                src="./assets/experience.png"
-                alt="Experience icon"
-                class="icon"
-              />
-              <h3>Expérience professionnelle</h3>
-              <p>6 mois <br />Data Analyst (stage)</p>
-            </div>
-            <div class="details-container">
-              <img
-                src="./assets/education.png"
-                alt="Education icon"
-                class="icon"
-              />
-              <h3>Formation</h3>
-              <p>Licence en mathématiques et statistiques : Université du Québec à Montréal (2019-2023)
-              <br />Mastère en IA et management - Parcours DATA Scienctist (2023-2025)</p>
-            </div>
-          </div>
-          <div class="text-container">
-            <p>
-        Je n’ai pas toujours été naturellement doué en mathématiques. 
-        Au contraire, il m’a fallu du temps, de la rigueur et surtout de la persévérance pour apprivoiser cet univers parfois complexe. 
-        Mais à mesure que je progressais, j’ai découvert une véritable passion pour les chiffres.
-        Ce cheminement m’a permis de développer un sens aigu du détail et une capacité d’analyse qui me servent aujourd’hui à donner du sens aux données.
-          </p>
-          </div>
-        </div>
-      </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#experience'"
-      />
-    </section>
-    <section id="experience">
-      <p class="section__text__p1">Découvrir mes</p>
-      <h1 class="title">Atouts</h1>
-      <div class="experience-details-container">
-        <div class="about-containers">
-          <div class="details-container">
-            <h2 class="experience-sub-title">Logiciels</h2>
-<div class="article-container">
-  <article>
-    <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-    <div>
-      <h3>Python</h3>
-      <p>Avancé</p>
-    </div>
-  </article>
-  <article>
-    <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-    <div>
-      <h3>R</h3>
-      <p>Avancé</p>
-    </div>
-  </article>
-  <article>
-    <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-    <div>
-      <h3>SAS</h3>
-      <p>Avancé</p>
-    </div>
-  </article>
-  <article>
-    <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-    <div>
-      <h3>Excel</h3>
-      <p>Avancé</p>
-    </div>
-  </article>
-  <article>
-    <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-    <div>
-      <h3>SQL</h3>
-      <p>Intermédiaire</p>
-    </div>
-  </article>
-  <article>
-    <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-    <div>
-      <h3>Tableau</h3>
-      <p>Intermédiaire</p>
-    </div>
-  </article>
-  <article>
-    <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-    <div>
-      <h3>Power BI</h3>
-      <p>Intermédiaire</p>
-    </div>
-  </article>
-</div>
-             </div>
-          <div class="details-container">
-            <h2 class="experience-sub-title">SoftSkills</h2>
-            <div class="article-container">
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Autonomie</h3>
-                  <p></p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Force de proposition</h3>
-                  <p></p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Rigueur</h3>
-                  <p></p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Capacité d'adaptation</h3>
-                  <p></p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
-      </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#projects'"
-      />
-    </section>
-    <section id="projects">
-      <p class="section__text__p1">Parcourir mes récents</p>
-      <h1 class="title">Projets</h1>
-      <div class="experience-details-container">
-        <div class="about-containers">
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./assets/project-1.png"
-                alt="Project 1"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Ligue 1 xG</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/Rako75/Ligue1_xG/tree/main'"
-              >
-                Github
-              </button>              
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./assets/project-2.png"
-                alt="Project 2"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Salaires vs Performances</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/Rako75/Salaires_Performances'"
-              >
-                Github
-              </button>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./assets/project-3.png"
-                alt="Project 3"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Radar Joueurs</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/Rako75/ComparePlayers'"
-              >
-                Github
-              </button>
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://compareplayers.streamlit.app/'"
-              >
-                Demo
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#contact'"
-      />
-    </section>
-    <section id="contact">
-      <p class="section__text__p1"></p>
-      <h1 class="title">Contactez Moi</h1>
-      <div class="contact-info-upper-container">
-        <div class="contact-info-container">
-          <img
-            src="./assets/email.png"
-            alt="Email icon"
-            class="icon contact-icon email-icon"
-          />
-          <p><a href="mailto:rakotomalala.alex@gmail.com">Mail</a></p>
-        </div>
-        <div class="contact-info-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="LinkedIn icon"
-            class="icon contact-icon"
-          />
-          <p><a href="https://www.linkedin.com/in/alexrakotomalala/">LinkedIn</a></p>
-        </div>
-      </div>
-    </section>
-    <footer>
-      <nav>
-        <div class="nav-links-container">
-          <ul class="nav-links">
-            <li><a href="#about">À propos</a></li>
-            <li><a href="#experience">Expérience</a></li>
+            <li><a href="#about">À Propos</a></li>
+            <li><a href="#experience">Compétences</a></li>
+            <li><a href="#visualizations">Visualisations</a></li>
             <li><a href="#projects">Projets</a></li>
             <li><a href="#contact">Contact</a></li>
-          </ul>
+        </ul>
+    </nav>
+
+    <nav id="hamburger-nav">
+        <div class="logo">Alex R.</div>
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-links">
+                <li><a href="#about" onclick="toggleMenu()">À Propos</a></li>
+                <li><a href="#experience" onclick="toggleMenu()">Compétences</a></li>
+                <li><a href="#visualizations" onclick="toggleMenu()">Visualisations</a></li>
+                <li><a href="#projects" onclick="toggleMenu()">Projets</a></li>
+                <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+            </div>
         </div>
-      </nav>
-      <p>Copyright &#169; 2025 Alex Rakotomalala. Tous droits réservés.</p>
+    </nav>
+
+    <section id="profile">
+        <div class="profile-content">
+            <h1>Alex Rakotomalala</h1>
+            <div class="subtitle">Data Scientist / Analyst</div>
+            <div class="description">
+                Passionné par l'analyse de données et l'intelligence artificielle, 
+                je transforme les données complexes en insights actionables pour 
+                éclairer les décisions stratégiques.
+            </div>
+            <div class="btn-container">
+                <a href="./assets/ALEX_RAKOTOMALALA_CV.pdf" class="btn btn-primary" target="_blank">
+                    Télécharger CV
+                </a>
+                <a href="#contact" class="btn btn-secondary">Me Contacter</a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/alexrakotomalala/" target="_blank">
+                    📧
+                </a>
+                <a href="https://github.com/Rako75" target="_blank">
+                    🔗
+                </a>
+            </div>
+        </div>
+        <div class="profile-image">
+            <img src="./assets/profile_pic.png" alt="Alex Rakotomalala" />
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-title">
+            <h1>À propos de moi</h1>
+            <p>Mon parcours et ma vision de la Data Science</p>
+        </div>
+        <div class="grid grid-2">
+            <div class="card about-card">
+                <h3>🎓 Formation</h3>
+                <p>
+                    <strong>Licence en mathématiques et statistiques</strong><br>
+                    Université du Québec à Montréal (2019-2023)<br><br>
+                    <strong>Mastère en IA et management</strong><br>
+                    Parcours Data Scientist (2023-2025)
+                </p>
+            </div>
+            <div class="card about-card">
+                <h3>💼 Expérience</h3>
+                <p>
+                    <strong>Data Analyst (Stage)</strong><br>
+                    6 mois d'expérience en analyse de données<br>
+                    Développement de tableaux de bord et analyses prédictives
+                </p>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 2rem;">
+            <p style="font-size: 1.1rem; color: var(--text-secondary); text-align: center; line-height: 1.8;">
+                Je n'ai pas toujours été naturellement doué en mathématiques. Au contraire, il m'a fallu du temps, 
+                de la rigueur et surtout de la persévérance pour apprivoiser cet univers parfois complexe. 
+                Mais à mesure que je progressais, j'ai découvert une véritable passion pour les chiffres. 
+                Ce cheminement m'a permis de développer un sens aigu du détail et une capacité d'analyse qui 
+                me servent aujourd'hui à donner du sens aux données.
+            </p>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="section-title">
+            <h1>Compétences</h1>
+            <p>Mes outils et technologies maîtrisés</p>
+        </div>
+        <div class="grid grid-2">
+            <div class="card skill-category">
+                <h3>🛠️ Technologies</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Python</h4>
+                            <p>Avancé</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>R</h4>
+                            <p>Avancé</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>SAS</h4>
+                            <p>Avancé</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Excel</h4>
+                            <p>Avancé</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>SQL</h4>
+                            <p>Intermédiaire</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Tableau</h4>
+                            <p>Intermédiaire</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Power BI</h4>
+                            <p>Intermédiaire</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card skill-category">
+                <h3>🧠 Soft Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Autonomie</h4>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Force de proposition</h4>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Rigueur</h4>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Capacité d'adaptation</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="visualizations">
+        <div class="section-title">
+            <h1>Visualisations</h1>
+            <p>Mes créations graphiques et dashboards interactifs</p>
+        </div>
+        <div class="visualizations-grid">
+            <div class="visualization-card">
+                <div class="visualization-image">
+                    📊 Dashboard Performance
+                </div>
+                <div class="visualization-content">
+                    <h3>Tableau de Bord Interactif</h3>
+                    <p>Visualisation des KPIs en temps réel avec des métriques de performance avancées.</p>
+                </div>
+            </div>
+            <div class="visualization-card">
+                <div class="visualization-image">
+                    📈 Analyse Prédictive
+                </div>
+                <div class="visualization-content">
+                    <h3>Modèle de Prédiction</h3>
+                    <p>Graphiques de tendances et modèles prédictifs pour anticiper les évolutions futures.</p>
+                </div>
+            </div>
+            <div class="visualization-card">
+                <div class="visualization-image">
+                    🗺️ Cartographie Data
+                </div>
+                <div class="visualization-content">
+                    <h3>Visualisation Géospatiale</h3>
+                    <p>Cartes interactives et analyses géographiques des données de performance.</p>
+                </div>
+            </div>
+            <div class="visualization-card">
+                <div class="visualization-image">
+                    📋 Rapport Analytique
+                </div>
+                <div class="visualization-content">
+                    <h3>Dashboard Exécutif</h3>
+                    <p>Synthèse visuelle des indicateurs clés pour la prise de décision stratégique.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-title">
+            <h1>Projets</h1>
+            <p>Mes réalisations en Data Science et analyse</p>
+        </div>
+        <div class="grid grid-3">
+            <div class="project-card">
+                <div class="project-image">
+                    ⚽ Football Analytics
+                </div>
+                <div class="project-content">
+                    <h3>Ligue 1 xG</h3>
+                    <div class="project-buttons">
+                        <a href="https://github.com/Rako75/Ligue1_xG/tree/main" class="btn btn-primary btn-small" target="_blank">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    💰 Salary Analysis
+                </div>
+                <div class="project-content">
+                    <h3>Salaires vs Performances</h3>
+                    <div class="project-buttons">
+                        <a href="https://github.com/Rako75/Salaires_Performances" class="btn btn-primary btn-small" target="_blank">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    📊 Player Comparison
+                </div>
+                <div class="project-content">
+                    <h3>Radar Joueurs</h3>
+                    <div class="project-buttons">
+                        <a href="https://github.com/Rako75/ComparePlayers" class="btn btn-secondary btn-small" target="_blank">
+                            GitHub
+                        </a>
+                        <a href="https://compareplayers.streamlit.app/" class="btn btn-primary btn-small" target="_blank">
+                            Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-title">
+            <h1>Contactez-moi</h1>
+            <p>N'hésitez pas à me contacter pour discuter de vos projets</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-links">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <a href="mailto:rakotomalala.alex@gmail.com">Email</a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">💼</div>
+                    <a href="https://www.linkedin.com/in/alexrakotomalala/" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Alex Rakotomalala. Tous droits réservés.</p>
     </footer>
-    <script src="script.js"></script>
-  </body>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector(".menu-links");
+            const icon = document.querySelector(".hamburger-icon");
+            menu.classList.toggle("open");
+            icon.classList.toggle("open");
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(26, 29, 41, 0.98)';
+            } else {
+                nav.style.background = 'rgba(26, 29, 41, 0.95)';
+            }
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.card, .project-card, .visualization-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
 </html>
