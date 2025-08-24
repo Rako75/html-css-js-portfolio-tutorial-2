@@ -1,963 +1,930 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Rakotomalala - Football Data Scientist</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alex Rakotomalala - Data Scientist</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-green: #00ff41;
-            --dark-green: #1a4d2e;
-            --deep-blue: #0d1b2a;
-            --navy-blue: #1b263b;
-            --light-blue: #415a77;
-            --white: #ffffff;
-            --gray-100: #f8fafc;
-            --gray-200: #e2e8f0;
-            --gray-300: #cbd5e1;
-            --gray-400: #94a3b8;
-            --gray-500: #64748b;
-            --gray-600: #475569;
-            --gray-700: #334155;
-            --gray-800: #1e293b;
-            --gray-900: #0f172a;
-            --accent-orange: #ff6b35;
-            --accent-yellow: #ffd23f;
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.12);
-        }
-
+        /* GENERAL */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-dark: #1a1d29;
+            --secondary-dark: #252836;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --card-bg: #1e293b;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--navy-blue) 100%);
-            color: var(--white);
+            background-color: var(--primary-dark);
+            color: var(--text-primary);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* ANIMATED BACKGROUND */
-        .field-lines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.03;
-            z-index: -1;
-            background-image: 
-                linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px),
-                linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: fieldMove 20s linear infinite;
-        }
-
-        @keyframes fieldMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+        html {
+            scroll-behavior: smooth;
         }
 
         /* NAVIGATION */
-        .navbar {
+        nav {
             position: fixed;
             top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(13, 27, 42, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 1rem 0;
+            width: 100%;
+            background: rgba(26, 29, 41, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
             z-index: 1000;
-            transition: all 0.3s ease;
+            padding: 1rem 0;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        #desktop-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary-green);
-            text-decoration: none;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .nav-menu {
+        .nav-links {
             display: flex;
             list-style: none;
             gap: 2rem;
-            align-items: center;
         }
 
-        .nav-link {
-            color: var(--gray-300);
+        .nav-links a {
+            color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
             position: relative;
         }
 
-        .nav-link:hover {
-            color: var(--primary-green);
+        .nav-links a:hover {
+            color: var(--accent-blue);
         }
 
-        .nav-link.active {
-            color: var(--primary-green);
-        }
-
-        .nav-link::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
             bottom: -5px;
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--primary-green);
+            background: var(--accent-blue);
             transition: width 0.3s ease;
         }
 
-        .nav-link:hover::after,
-        .nav-link.active::after {
+        .nav-links a:hover::after {
             width: 100%;
         }
 
-        /* HERO SECTION */
-        .hero {
-            height: 100vh;
-            display: flex;
+        /* HAMBURGER MENU */
+        #hamburger-nav {
+            display: none;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            position: relative;
-            background: radial-gradient(ellipse at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 800px;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 0 2rem;
         }
 
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--white) 0%, var(--primary-green) 100%);
+        .hamburger-menu {
+            position: relative;
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 24px;
+            width: 30px;
+            cursor: pointer;
+        }
+
+        .hamburger-icon span {
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .menu-links {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            width: 200px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-links.open {
+            max-height: 300px;
+        }
+
+        .menu-links li {
+            list-style: none;
+        }
+
+        .menu-links a {
+            display: block;
+            padding: 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .menu-links a:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* SECTIONS */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+            min-height: fit-content;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        /* PROFILE SECTION */
+        #profile {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            min-height: 90vh;
+            padding-top: 8rem;
+        }
+
+        .profile-content {
+            flex: 1;
+        }
+
+        .profile-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            animation: slideUp 1s ease-out;
+            line-height: 1.1;
         }
 
-        .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            color: var(--gray-300);
+        .profile-content .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
             margin-bottom: 2rem;
-            animation: slideUp 1s ease-out 0.2s both;
+            font-weight: 600;
         }
 
-        .hero-description {
-            font-size: 1.1rem;
-            color: var(--gray-400);
+        .profile-content .description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
             margin-bottom: 3rem;
-            line-height: 1.8;
-            animation: slideUp 1s ease-out 0.4s both;
+            max-width: 500px;
         }
 
-        .cta-buttons {
+        .profile-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .profile-image img {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-blue);
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+        }
+
+        /* BUTTONS */
+        .btn-container {
             display: flex;
             gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: slideUp 1s ease-out 0.6s both;
+            margin-bottom: 2rem;
         }
 
         .btn {
             padding: 1rem 2rem;
             border: none;
-            border-radius: 50px;
+            border-radius: 0.5rem;
             font-weight: 600;
             text-decoration: none;
-            cursor: pointer;
             transition: all 0.3s ease;
+            cursor: pointer;
             font-size: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .btn-primary {
-            background: var(--primary-green);
-            color: var(--deep-blue);
+            background: var(--accent-blue);
+            color: white;
         }
 
         .btn-primary:hover {
-            background: var(--dark-green);
+            background: #2563eb;
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--white);
-            border: 2px solid var(--glass-border);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
         }
 
         .btn-secondary:hover {
-            background: var(--glass-bg);
-            border-color: var(--primary-green);
-            color: var(--primary-green);
-            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* SOCIAL LINKS */
+        .social-links {
+            display: flex;
+            gap: 1rem;
         }
 
-        /* FLOATING STATS */
-        .floating-stats {
-            position: absolute;
-            top: 50%;
-            left: 2rem;
-            transform: translateY(-50%);
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2rem;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .stat-item {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary-green);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--gray-400);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(-50%); }
-            50% { transform: translateY(-70px); }
-        }
-
-        /* SECTIONS */
-        .section {
-            padding: 5rem 0;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--primary-green);
-            border-radius: 2px;
-        }
-
-        /* ABOUT SECTION */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            align-items: center;
-            margin-top: 4rem;
-        }
-
-        .about-image {
-            position: relative;
-        }
-
-        .image-container {
-            width: 300px;
-            height: 300px;
-            background: var(--glass-bg);
-            border-radius: 20px;
+        .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 8rem;
-            border: 2px solid var(--glass-border);
+            width: 50px;
+            height: 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
         }
 
-        .about-content h3 {
-            font-size: 1.5rem;
-            color: var(--primary-green);
-            margin-bottom: 1rem;
+        .social-links a:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            transform: translateY(-2px);
         }
 
-        .about-content p {
-            color: var(--gray-300);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        /* SKILLS SECTION */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .skill-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
+        /* CARD STYLES */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
             padding: 2rem;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
-        .skill-card:hover {
+        .card:hover {
+            border-color: var(--accent-blue);
             transform: translateY(-5px);
-            border-color: var(--primary-green);
-            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.1);
         }
 
-        .skill-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .grid {
+            display: grid;
+            gap: 2rem;
         }
 
-        .skill-title {
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        /* ABOUT SECTION */
+        #about .grid {
+            margin-top: 2rem;
+        }
+
+        .about-card h3 {
+            color: var(--accent-blue);
             font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--white);
             margin-bottom: 1rem;
         }
 
-        .skill-description {
-            color: var(--gray-400);
-            line-height: 1.6;
+        .about-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
         }
 
-        /* PROJECTS SECTION */
-        .projects-grid {
+        /* EXPERIENCE SECTION */
+        .skill-category h3 {
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 0.5rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .skill-item .checkmark {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .skill-item .checkmark::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+        }
+
+        .skill-info h4 {
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .skill-info p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* VISUALISATIONS SECTION */
+        .visualizations-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin-top: 4rem;
+            margin-top: 2rem;
         }
 
-        .project-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
+        .visualization-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .visualization-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-5px);
+        }
+
+        .visualization-image {
+            width: 100%;
+            height: 250px;
+            background: var(--secondary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .visualization-content {
+            padding: 1.5rem;
+        }
+
+        .visualization-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .visualization-content p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* PROJECTS SECTION */
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
 
         .project-card:hover {
+            border-color: var(--accent-cyan);
             transform: translateY(-5px);
-            border-color: var(--primary-green);
         }
 
-        .project-header {
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: var(--secondary-dark);
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            justify-content: center;
+            color: var(--text-muted);
         }
 
-        .project-icon {
-            font-size: 2rem;
+        .project-content {
+            padding: 1.5rem;
         }
 
-        .project-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--white);
+        .project-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
         }
 
-        .project-description {
-            color: var(--gray-400);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-tech {
+        .project-buttons {
             display: flex;
-            flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 1.5rem;
         }
 
-        .tech-tag {
-            background: rgba(0, 255, 65, 0.1);
-            color: var(--primary-green);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .link-btn {
+        .btn-small {
             padding: 0.5rem 1rem;
-            background: transparent;
-            border: 1px solid var(--gray-600);
-            border-radius: 25px;
-            color: var(--gray-300);
-            text-decoration: none;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .link-btn:hover {
-            border-color: var(--primary-green);
-            color: var(--primary-green);
+            border-radius: 0.5rem;
         }
 
         /* CONTACT SECTION */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: start;
-            margin-top: 4rem;
+        .contact-container {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .contact-info {
+        .contact-links {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             gap: 2rem;
+            margin-top: 2rem;
         }
 
         .contact-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 1rem;
-            padding: 1.5rem;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
+            padding: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
             transition: all 0.3s ease;
+            min-width: 200px;
         }
 
         .contact-item:hover {
-            border-color: var(--primary-green);
-            transform: translateX(5px);
+            border-color: var(--accent-blue);
         }
 
         .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             font-size: 1.5rem;
-            color: var(--primary-green);
         }
 
-        .contact-form {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--gray-300);
+        .contact-item a {
+            color: var(--text-primary);
+            text-decoration: none;
             font-weight: 500;
         }
 
-        .form-input {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            color: var(--white);
-            font-size: 1rem;
+        /* FOOTER */
+        footer {
+            background: var(--secondary-dark);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
         }
 
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary-green);
+        footer p {
+            color: var(--text-muted);
         }
 
-        .form-textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        /* MOBILE RESPONSIVENESS */
-        @media (max-width: 768px) {
-            .nav-menu {
+        /* RESPONSIVE */
+        @media screen and (max-width: 768px) {
+            #desktop-nav {
                 display: none;
             }
             
-            .about-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
+            #hamburger-nav {
+                display: flex;
+            }
+
+            #profile {
+                flex-direction: column;
+                text-align: center;
                 gap: 2rem;
             }
-            
-            .floating-stats {
-                position: relative;
-                left: 0;
-                transform: none;
-                margin: 2rem auto;
-                width: fit-content;
+
+            .profile-content h1 {
+                font-size: 3rem;
             }
-            
-            .cta-buttons {
+
+            .profile-image img {
+                width: 280px;
+                height: 280px;
+            }
+
+            .section-title h1 {
+                font-size: 2.5rem;
+            }
+
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
                 flex-direction: column;
                 align-items: center;
             }
-            
-            .projects-grid,
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .section {
-                padding-left: 1rem;
-                padding-right: 1rem;
+
+            section {
+                padding: 4rem 1rem 2rem;
             }
         }
 
-        /* SCROLL PROGRESS */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: var(--primary-green);
-            z-index: 1001;
-            transition: width 0.1s ease;
+        .hamburger-icon.open span:first-child {
+            transform: rotate(45deg) translate(10px, 5px);
         }
 
-        /* SCROLL TO TOP */
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: var(--primary-green);
-            border: none;
-            border-radius: 50%;
-            color: var(--deep-blue);
-            font-size: 1.5rem;
-            cursor: pointer;
+        .hamburger-icon.open span:nth-child(2) {
             opacity: 0;
-            transform: translateY(100px);
-            transition: all 0.3s ease;
-            z-index: 1000;
         }
 
-        .scroll-top.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .scroll-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+        .hamburger-icon.open span:last-child {
+            transform: rotate(-45deg) translate(10px, -5px);
         }
     </style>
 </head>
 <body>
-    <!-- Field Lines Background -->
-    <div class="field-lines"></div>
+    <nav id="desktop-nav">
+        <div class="logo">Alex Rako</div>
+        <ul class="nav-links">
+            <li><a href="#about">À Propos</a></li>
+            <li><a href="#experience">Compétences</a></li>
+            <li><a href="#visualizations">Visualisations</a></li>
+            <li><a href="#projects">Projets</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-    <!-- Progress Bar -->
-    <div class="progress-bar" id="progressBar"></div>
-
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">⚽ Alex Rako</a>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active">Accueil</a></li>
-                <li><a href="#about" class="nav-link">À Propos</a></li>
-                <li><a href="#skills" class="nav-link">Compétences</a></li>
-                <li><a href="#projects" class="nav-link">Projets</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
+    <nav id="hamburger-nav">
+        <div class="logo">Alex R.</div>
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-links">
+                <li><a href="#about" onclick="toggleMenu()">À Propos</a></li>
+                <li><a href="#experience" onclick="toggleMenu()">Compétences</a></li>
+                <li><a href="#visualizations" onclick="toggleMenu()">Visualisations</a></li>
+                <li><a href="#projects" onclick="toggleMenu()">Projets</a></li>
+                <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="floating-stats">
-            <div class="stat-item">
-                <div class="stat-number">15+</div>
-                <div class="stat-label">Projets</div>
+    <section id="profile">
+        <div class="profile-content">
+            <h1>Alex Rakotomalala</h1>
+            <div class="subtitle">Data Scientist / Analyst</div>
+            <div class="description">
+                Passionné par l'analyse de données et l'intelligence artificielle, 
+                je transforme les données complexes en insights actionables pour 
+                éclairer les décisions stratégiques.
             </div>
-            <div class="stat-item">
-                <div class="stat-number">5+</div>
-                <div class="stat-label">Ligues</div>
+            <div class="btn-container">
+                <a href="./assets/ALEX_RAKOTOMALALA_CV.pdf" class="btn btn-primary" target="_blank">
+                    Télécharger CV
+                </a>
+                <a href="#contact" class="btn btn-secondary">Me Contacter</a>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">1M+</div>
-                <div class="stat-label">Data Points</div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/alexrakotomalala/" target="_blank">
+                    📧
+                </a>
+                <a href="https://github.com/Rako75" target="_blank">
+                    🔗
+                </a>
             </div>
         </div>
-        
-        <div class="hero-content">
-            <h1 class="hero-title">Alex Rakotomalala</h1>
-            <p class="hero-subtitle">Football Data Scientist & Performance Analyst</p>
-            <p class="hero-description">
-                Je transforme les données footballistiques en insights stratégiques pour optimiser 
-                les performances des joueurs et des équipes. De l'analyse xG aux modèles prédictifs, 
-                j'utilise la data science pour révolutionner l'analyse du football moderne.
+        <div class="profile-image">
+            <img src="./assets/profile_pic.png" alt="Alex Rakotomalala" />
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-title">
+            <h1>À propos de moi</h1>
+            <p>Mon parcours et ma vision de la Data Science</p>
+        </div>
+        <div class="grid grid-2">
+            <div class="card about-card">
+                <h3>🎓 Formation</h3>
+                <p>
+                    <strong>Licence en mathématiques et statistiques</strong><br>
+                    Université du Québec à Montréal (2019-2023)<br><br>
+                    <strong>Mastère en IA et management</strong><br>
+                    Parcours Data Scientist (2023-2025)
+                </p>
+            </div>
+            <div class="card about-card">
+                <h3>💼 Expérience</h3>
+                <p>
+                    <strong>Data Analyst (Stage)</strong><br>
+                    6 mois d'expérience en analyse de données<br>
+                    Développement de tableaux de bord et analyses prédictives
+                </p>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 2rem;">
+            <p style="font-size: 1.1rem; color: var(--text-secondary); text-align: center; line-height: 1.8;">
+                Je n'ai pas toujours été naturellement doué en mathématiques. Au contraire, il m'a fallu du temps, 
+                de la rigueur et surtout de la persévérance pour apprivoiser cet univers parfois complexe. 
+                Mais à mesure que je progressais, j'ai découvert une véritable passion pour les chiffres. 
+                Ce cheminement m'a permis de développer un sens aigu du détail et une capacité d'analyse qui 
+                me servent aujourd'hui à donner du sens aux données.
             </p>
-            <div class="cta-buttons">
-                <a href="#projects" class="btn btn-primary">
-                    📊 Voir mes projets
-                </a>
-                <a href="mailto:rakotomalala.alex@gmail.com" class="btn btn-secondary">
-                    ✉️ Me contacter
-                </a>
-            </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="section">
-        <h2 class="section-title">À Propos</h2>
-        <div class="about-grid">
-            <div class="about-image">
-                <div class="image-container">
-                    ⚽
-                </div>
-            </div>
-            <div class="about-content">
-                <h3>Passionné par l'analyse footballistique</h3>
-                <p>
-                    Fort d'une formation en mathématiques à l'UQAM et d'un mastère en IA & Management, 
-                    je me spécialise dans l'analyse de données sportives, particulièrement le football. 
-                    Mon expertise couvre l'analyse des performances, la modélisation prédictive et la 
-                    visualisation de données complexes.
-                </p>
-                <p>
-                    De Montréal à Paris, j'ai développé une approche unique combinant rigueur 
-                    scientifique et passion du football pour créer des outils d'analyse révolutionnaires.
-                </p>
-                <div class="cta-buttons">
-                    <a href="https://www.linkedin.com/in/alexrakotomalala/" target="_blank" class="btn btn-primary">
-                        💼 LinkedIn
-                    </a>
-                </div>
-            </div>
+    <section id="experience">
+        <div class="section-title">
+            <h1>Compétences</h1>
+            <p>Mes outils et technologies maîtrisés</p>
         </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="section">
-        <h2 class="section-title">Compétences</h2>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <div class="skill-icon">📊</div>
-                <h3 class="skill-title">Analyse de Performance</h3>
-                <p class="skill-description">
-                    Analyse approfondie des métriques footballistiques : xG, xA, PPDA, 
-                    pressing intensity, et création d'indicateurs de performance personnalisés.
-                </p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">🧠</div>
-                <h3 class="skill-title">Machine Learning</h3>
-                <p class="skill-description">
-                    Développement de modèles prédictifs pour estimer les résultats, 
-                    évaluer les joueurs et optimiser les stratégies d'équipe.
-                </p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">📈</div>
-                <h3 class="skill-title">Visualisation de Données</h3>
-                <p class="skill-description">
-                    Création de dashboards interactifs, radar charts et heatmaps 
-                    pour rendre les données footballistiques accessibles et actionables.
-                </p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">🐍</div>
-                <h3 class="skill-title">Python & R</h3>
-                <p class="skill-description">
-                    Maîtrise avancée de Python (pandas, scikit-learn, matplotlib) 
-                    et R pour le traitement et l'analyse de grandes bases de données.
-                </p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">🗃️</div>
-                <h3 class="skill-title">Bases de Données</h3>
-                <p class="skill-description">
-                    Gestion et requêtage de bases de données complexes avec SQL, 
-                    intégration d'APIs sportives et web scraping.
-                </p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">🎯</div>
-                <h3 class="skill-title">Scouting Data</h3>
-                <p class="skill-description">
-                    Développement d'algorithmes de scouting automatisé et 
-                    d'évaluation de potentiel basés sur les données.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="section">
-        <h2 class="section-title">Projets Football</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-icon">⚽</div>
-                    <h3 class="project-title">Ligue 1 xG Analytics</h3>
-                </div>
-                <p class="project-description">
-                    Analyse complète des Expected Goals en Ligue 1. Modélisation des chances 
-                    de but et évaluation de la performance offensive et défensive des équipes.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">Pandas</span>
-                    <span class="tech-tag">Matplotlib</span>
-                    <span class="tech-tag">Scikit-learn</span>
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/Rako75/Ligue1_xG/tree/main" target="_blank" class="link-btn">🔗 GitHub</a>
+        <div class="grid grid-2">
+            <div class="card skill-category">
+                <h3>🛠️ Technologies</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Python</h4>
+                            <p>Avancé</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>R</h4>
+                            <p>Avancé</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>SAS</h4>
+                            <p>Avancé</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Excel</h4>
+                            <p>Avancé</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>SQL</h4>
+                            <p>Intermédiaire</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Tableau</h4>
+                            <p>Intermédiaire</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Power BI</h4>
+                            <p>Intermédiaire</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-icon">💰</div>
-                    <h3 class="project-title">Salary vs Performance</h3>
-                </div>
-                <p class="project-description">
-                    Étude de corrélation entre les salaires des joueurs et leurs performances 
-                    statistiques. Analyse du rapport qualité-prix dans le football moderne.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">R</span>
-                    <span class="tech-tag">ggplot2</span>
-                    <span class="tech-tag">dplyr</span>
-                    <span class="tech-tag">Statistical Analysis</span>
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/Rako75/Salaires_Performances" target="_blank" class="link-btn">🔗 GitHub</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-icon">📡</div>
-                    <h3 class="project-title">Player Radar Comparator</h3>
-                </div>
-                <p class="project-description">
-                    Application interactive Streamlit pour comparer les joueurs via des radar charts. 
-                    Outil de scouting avancé avec métriques personnalisables.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">Streamlit</span>
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">Plotly</span>
-                    <span class="tech-tag">Interactive Viz</span>
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/Rako75/ComparePlayers" target="_blank" class="link-btn">🔗 GitHub</a>
-                    <a href="https://compareplayers.streamlit.app/" target="_blank" class="link-btn">🚀 Demo</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-icon">🏆</div>
-                    <h3 class="project-title">Match Result Predictor</h3>
-                </div>
-                <p class="project-description">
-                    Modèle de machine learning pour prédire les résultats de matchs basé sur 
-                    les statistiques historiques et la forme récente des équipes.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">XGBoost</span>
-                    <span class="tech-tag">Feature Engineering</span>
-                    <span class="tech-tag">API Integration</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="link-btn">🔗 Bientôt disponible</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-icon">🎯</div>
-                    <h3 class="project-title">Tactical Analysis Dashboard</h3>
-                </div>
-                <p class="project-description">
-                    Dashboard interactif pour l'analyse tactique en temps réel. Visualisation 
-                    des formations, pressing maps et zones de récupération.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">Tableau</span>
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">SQL</span>
-                    <span class="tech-tag">Real-time Data</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="link-btn">🔗 En développement</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-icon">🔍</div>
-                    <h3 class="project-title">Scouting Algorithm</h3>
-                </div>
-                <p class="project-description">
-                    Algorithme de scouting automatisé pour identifier les talents émergents 
-                    basé sur les performances statistiques et le potentiel de progression.
-                </p>
-                <div class="project-tech">
-                    <span class="tech-tag">Machine Learning</span>
-                    <span class="tech-tag">Clustering</span>
-                    <span class="tech-tag">Performance Metrics</span>
-                    <span class="tech-tag">Data Mining</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="link-btn">🔗 Confidentiel</a>
+            <div class="card skill-category">
+                <h3>🧠 Soft Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Autonomie</h4>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Force de proposition</h4>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Rigueur</h4>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="checkmark"></div>
+                        <div class="skill-info">
+                            <h4>Capacité d'adaptation</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-        <h2 class="section-title">Contact</h2>
-        <div class="contact-grid">
-            <div class="contact-info">
+    <section id="visualizations">
+        <div class="section-title">
+            <h1>Visualisations</h1>
+            <p>Mes créations graphiques et dashboards interactifs</p>
+        </div>
+        <div class="visualizations-grid">
+            <div class="visualization-card">
+                <div class="visualization-image">
+                    📊 Dashboard Performance
+                </div>
+                <div class="visualization-content">
+                    <h3>Tableau de Bord Interactif</h3>
+                    <p>Visualisation des KPIs en temps réel avec des métriques de performance avancées.</p>
+                </div>
+            </div>
+            <div class="visualization-card">
+                <div class="visualization-image">
+                    📈 Analyse Prédictive
+                </div>
+                <div class="visualization-content">
+                    <h3>Modèle de Prédiction</h3>
+                    <p>Graphiques de tendances et modèles prédictifs pour anticiper les évolutions futures.</p>
+                </div>
+            </div>
+            <div class="visualization-card">
+                <div class="visualization-image">
+                    🗺️ Cartographie Data
+                </div>
+                <div class="visualization-content">
+                    <h3>Visualisation Géospatiale</h3>
+                    <p>Cartes interactives et analyses géographiques des données de performance.</p>
+                </div>
+            </div>
+            <div class="visualization-card">
+                <div class="visualization-image">
+                    📋 Rapport Analytique
+                </div>
+                <div class="visualization-content">
+                    <h3>Dashboard Exécutif</h3>
+                    <p>Synthèse visuelle des indicateurs clés pour la prise de décision stratégique.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-title">
+            <h1>Projets</h1>
+            <p>Mes réalisations en Data Science et analyse</p>
+        </div>
+        <div class="grid grid-3">
+            <div class="project-card">
+                <div class="project-image">
+                    ⚽ Football Analytics
+                </div>
+                <div class="project-content">
+                    <h3>Ligue 1 xG</h3>
+                    <div class="project-buttons">
+                        <a href="https://github.com/Rako75/Ligue1_xG/tree/main" class="btn btn-primary btn-small" target="_blank">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    💰 Salary Analysis
+                </div>
+                <div class="project-content">
+                    <h3>Salaires vs Performances</h3>
+                    <div class="project-buttons">
+                        <a href="https://github.com/Rako75/Salaires_Performances" class="btn btn-primary btn-small" target="_blank">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    📊 Player Comparison
+                </div>
+                <div class="project-content">
+                    <h3>Radar Joueurs</h3>
+                    <div class="project-buttons">
+                        <a href="https://github.com/Rako75/ComparePlayers" class="btn btn-secondary btn-small" target="_blank">
+                            GitHub
+                        </a>
+                        <a href="https://compareplayers.streamlit.app/" class="btn btn-primary btn-small" target="_blank">
+                            Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-title">
+            <h1>Contactez-moi</h1>
+            <p>N'hésitez pas à me contacter pour discuter de vos projets</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-links">
                 <div class="contact-item">
                     <div class="contact-icon">📧</div>
-                    <div>
-                        <h4>Email</h4>
-                        <p>rakotomalala.alex@gmail.com</p>
-                    </div>
+                    <a href="mailto:rakotomalala.alex@gmail.com">Email</a>
                 </div>
                 <div class="contact-item">
                     <div class="contact-icon">💼</div>
-                    <div>
-                        <h4>LinkedIn</h4>
-                        <p>linkedin.com/in/alexrakotomalala</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">💻</div>
-                    <div>
-                        <h4>GitHub</h4>
-                        <p>github.com/Rako75</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <div>
-                        <h4>Localisation</h4>
-                        <p>Paris, France</p>
-                    </div>
+                    <a href="https://www.linkedin.com/in/alexrakotomalala/" target="_blank">LinkedIn</a>
                 </div>
             </div>
-            
-            <form class="contact-form" id="contactForm">
-                <h3 style="margin-bottom: 1.5rem; color: var(--primary-green);">Discutons de votre projet</h3>
-                <div class="form-group">
-                    <label for="name" class="form-label">Nom</label>
-                    <input type="text" id="name" class="form-input" required>
-                </div>
-                <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" class="form-input" required>
-                </div>
-                <div class="form-group">
-                    <label for="subject" class="form-label">Sujet</label>
-                    <input type="text" id="subject" class="form-input" required>
-                </div>
-                <div class="form-group">
-                    <label for="message" class="form-label">Message</label>
-                    <textarea id="message" class="form-input form-textarea" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                    📨 Envoyer le message
-                </button>
-            </form>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="section" style="text-align: center; padding: 2rem 0; border-top: 1px solid var(--glass-border);">
-        <p style="color: var(--gray-400); margin-bottom: 1rem;">
-            © 2025 Alex Rakotomalala - Football Data Scientist
-        </p>
-        <p style="color: var(--gray-500); font-size: 0.9rem;">
-            Transforming football data into winning strategies
-        </p>
+    <footer>
+        <p>&copy; 2025 Alex Rakotomalala. Tous droits réservés.</p>
     </footer>
 
-    <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scrollTop">↑</button>
-
     <script>
+        function toggleMenu() {
+            const menu = document.querySelector(".menu-links");
+            const icon = document.querySelector(".hamburger-icon");
+            menu.classList.toggle("open");
+            icon.classList.toggle("open");
+        }
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -972,97 +939,23 @@
             });
         });
 
-        // Navigation active state
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section');
-
-        function updateActiveNav() {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                const sectionHeight = section.clientHeight;
-                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').substring(1) === current) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        // Scroll progress bar
-        function updateProgressBar() {
-            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            document.getElementById('progressBar').style.width = scrolled + '%';
-        }
-
-        // Scroll to top button
-        const scrollTopBtn = document.getElementById('scrollTop');
-        
-        function toggleScrollTopBtn() {
-            if (window.scrollY > 300) {
-                scrollTopBtn.classList.add('visible');
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(26, 29, 41, 0.98)';
             } else {
-                scrollTopBtn.classList.remove('visible');
+                nav.style.background = 'rgba(26, 29, 41, 0.95)';
             }
-        }
-
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
         });
 
-        // Navbar background on scroll
-        const navbar = document.getElementById('navbar');
-        function updateNavbar() {
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(13, 27, 42, 0.98)';
-            } else {
-                navbar.style.background = 'rgba(13, 27, 42, 0.95)';
-            }
-        }
-
-        // Scroll event listeners
-        window.addEventListener('scroll', () => {
-            updateActiveNav();
-            updateProgressBar();
-            toggleScrollTopBtn();
-            updateNavbar();
-        });
-
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            
-            // Create mailto link
-            const mailtoLink = `mailto:rakotomalala.alex@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-            
-            // Open email client
-            window.location.href = mailtoLink;
-            
-            // Show success message
-            alert('Votre client de messagerie va s\'ouvrir avec le message pré-rempli.');
-        });
-
-        // Intersection Observer for animations
+        // Add animation on scroll
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
 
-        const observer = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver(function(entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
@@ -1071,99 +964,13 @@
             });
         }, observerOptions);
 
-        // Observe elements for animation
-        document.querySelectorAll('.skill-card, .project-card, .contact-item').forEach(el => {
+        // Observe all cards and sections
+        document.querySelectorAll('.card, .project-card, .visualization-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
         });
-
-        // Counter animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-            counters.forEach(counter => {
-                const target = counter.textContent.replace(/[^\d]/g, '');
-                const suffix = counter.textContent.replace(/[\d]/g, '');
-                let current = 0;
-                const increment = target / 50;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        counter.textContent = target + suffix;
-                        clearInterval(timer);
-                    } else {
-                        counter.textContent = Math.ceil(current) + suffix;
-                    }
-                }, 50);
-            });
-        }
-
-        // Start counter animation when hero section is in view
-        const heroObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounters();
-                    heroObserver.unobserve(entry.target);
-                }
-            });
-        });
-
-        heroObserver.observe(document.querySelector('.hero'));
-
-        // Easter egg: Konami code for rainbow effect
-        const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-        let konamiIndex = 0;
-
-        document.addEventListener('keydown', (e) => {
-            if (e.keyCode === konamiCode[konamiIndex]) {
-                konamiIndex++;
-                if (konamiIndex === konamiCode.length) {
-                    document.body.style.filter = 'hue-rotate(0deg)';
-                    document.body.style.animation = 'rainbow 3s infinite';
-                    
-                    setTimeout(() => {
-                        document.body.style.animation = '';
-                        document.body.style.filter = '';
-                    }, 10000);
-                    
-                    konamiIndex = 0;
-                }
-            } else {
-                konamiIndex = 0;
-            }
-        });
-
-        // Add rainbow animation CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes rainbow {
-                0% { filter: hue-rotate(0deg); }
-                25% { filter: hue-rotate(90deg); }
-                50% { filter: hue-rotate(180deg); }
-                75% { filter: hue-rotate(270deg); }
-                100% { filter: hue-rotate(360deg); }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Console message
-        console.log(`
-        ⚽ ALEX RAKOTOMALALA - FOOTBALL DATA SCIENTIST ⚽
-        ================================================
-        🎯 Transforming football data into winning insights
-        📊 Specializing in performance analysis & predictive modeling
-        🚀 Building the future of football analytics
-        
-        Contact: rakotomalala.alex@gmail.com
-        LinkedIn: linkedin.com/in/alexrakotomalala
-        `);
-
-        // Initialize
-        updateActiveNav();
-        updateProgressBar();
-        updateNavbar();
     </script>
 </body>
 </html>
