@@ -358,6 +358,18 @@
             box-shadow: var(--shadow-lg);
         }
 
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            transition: all 0.3s ease;
+            filter: brightness(0.8);
+        }
+
+        .social-link:hover .social-icon {
+            filter: brightness(1) hue-rotate(210deg);
+            transform: scale(1.1);
+        }
+
         /* Cards */
         .card {
             background: var(--card-bg);
@@ -675,6 +687,12 @@
             font-size: 1.8rem;
         }
 
+        .contact-icon-img {
+            width: 32px;
+            height: 32px;
+            filter: brightness(0) invert(1);
+        }
+
         .contact-card h4 {
             color: var(--text-primary);
             font-weight: 600;
@@ -894,10 +912,10 @@
                         📧
                     </a>
                     <a href="https://www.linkedin.com/in/alexrakotomalala/" class="social-link" target="_blank" title="LinkedIn">
-                        💼
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" class="social-icon">
                     </a>
                     <a href="https://github.com/Rako75" class="social-link" target="_blank" title="GitHub">
-                        💻
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="social-icon">
                     </a>
                 </div>
             </div>
@@ -1141,12 +1159,16 @@
                     <p>rakotomalala.alex@gmail.com</p>
                 </a>
                 <a href="https://www.linkedin.com/in/alexrakotomalala/" class="contact-card fade-in" target="_blank">
-                    <div class="contact-icon">💼</div>
+                    <div class="contact-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" class="contact-icon-img">
+                    </div>
                     <h4>LinkedIn</h4>
                     <p>Connectons-nous professionnellement</p>
                 </a>
                 <a href="https://github.com/Rako75" class="contact-card fade-in" target="_blank">
-                    <div class="contact-icon">💻</div>
+                    <div class="contact-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="contact-icon-img">
+                    </div>
                     <h4>GitHub</h4>
                     <p>Découvrez mes projets</p>
                 </a>
