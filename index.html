@@ -285,6 +285,12 @@
             color: var(--accent-blue);
         }
 
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border-radius: 0.5rem;
+        }
+
         /* SOCIAL LINKS */
         .social-links {
             display: flex;
@@ -451,47 +457,70 @@
         }
 
         /* PROJECTS SECTION */
-        .project-card {
+        .projects-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .project-item {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 1rem;
-            overflow: hidden;
+            padding: 2rem;
             transition: all 0.3s ease;
         }
 
-        .project-card:hover {
+        .project-item:hover {
             border-color: var(--accent-cyan);
             transform: translateY(-5px);
         }
 
-        .project-image {
-            width: 100%;
+        .project-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .project-preview-image {
+            width: 300px;
             height: 200px;
-            background: var(--secondary-dark);
+            object-fit: cover;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .project-preview-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .project-details {
+            flex: 1;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-content h3 {
+        .project-details h3 {
             color: var(--text-primary);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-details p {
+            color: var(--text-secondary);
+            line-height: 1.6;
             margin-bottom: 1rem;
         }
 
         .project-buttons {
             display: flex;
-            gap: 0.5rem;
-        }
-
-        .btn-small {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            border-radius: 0.5rem;
+            gap: 1rem;
         }
 
         /* CONTACT SECTION */
@@ -587,6 +616,23 @@
 
             .grid-2, .grid-3 {
                 grid-template-columns: 1fr;
+            }
+
+            .project-item {
+                flex-direction: column !important;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .project-preview-image {
+                width: 100%;
+                max-width: 300px;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .project-details h3 {
+                font-size: 1.5rem;
             }
 
             .contact-links {
@@ -846,7 +892,7 @@
         </div>
     </section>
 
-<section id="projects">
+    <section id="projects">
         <div class="section-title">
             <h1>Projets</h1>
             <p>Mes réalisations en Data Science et analyse</p>
@@ -857,19 +903,6 @@
                 <div class="project-details">
                     <h3>Ligue 1 xG</h3>
                     <p>Analyse des Expected Goals (xG) en Ligue 1. Étude approfondie des performances offensives des équipes et joueurs avec visualisations interactives et métriques avancées.</p>
-                    <div class="project-buttons">
-                        <a href="https://github.com/Rako75/Ligue1_xG/tree/main" class="btn btn-primary btn-small" target="_blank">
-                            GitHub
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="project-item">
-                <img src="./assets/salary_analysis_preview.jpg" alt="Analyse Salaires vs Performances" class="project-preview-image">
-                <div class="project-details">
-                    <h3>Salaires vs Performances</h3>
-                    <p>Corrélation entre les salaires des joueurs et leurs performances sportives. Analyse économique du football avec visualisations des rapports qualité-prix et efficacité salariale.</p>
                     <div class="project-buttons">
                         <a href="https://github.com/Rako75/Salaires_Performances" class="btn btn-primary btn-small" target="_blank">
                             GitHub
@@ -967,7 +1000,7 @@
         }, observerOptions);
 
         // Observe all cards and sections
-        document.querySelectorAll('.card, .project-card, .visualization-item').forEach(el => {
+        document.querySelectorAll('.card, .project-item, .visualization-item').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -975,4 +1008,17 @@
         });
     </script>
 </body>
-</html>
+</html>Ligue1_xG/tree/main" class="btn btn-primary btn-small" target="_blank">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-item">
+                <img src="./assets/salary_analysis_preview.jpg" alt="Analyse Salaires vs Performances" class="project-preview-image">
+                <div class="project-details">
+                    <h3>Salaires vs Performances</h3>
+                    <p>Corrélation entre les salaires des joueurs et leurs performances sportives. Analyse économique du football avec visualisations des rapports qualité-prix et efficacité salariale.</p>
+                    <div class="project-buttons">
+                        <a href="https://github.com/Rako75/
