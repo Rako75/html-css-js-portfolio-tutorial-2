@@ -485,6 +485,7 @@
             background: rgba(59, 130, 246, 0.1);
             border-color: var(--accent-primary);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         .skill-icon {
@@ -499,6 +500,19 @@
             font-size: 0.75rem;
             font-weight: bold;
             flex-shrink: 0;
+        }
+
+        .tech-icon {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            filter: brightness(1);
+        }
+
+        .skill-item:hover .tech-icon {
+            transform: scale(1.1);
+            filter: brightness(1.1);
         }
 
         .skill-info h4 {
@@ -642,67 +656,7 @@
             gap: 1rem;
         }
 
-        /* Contact Section */
-        .contact-content {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-        }
 
-        .contact-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .contact-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 2.5rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 1rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .contact-card:hover {
-            border-color: var(--accent-primary);
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .contact-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.8rem;
-        }
-
-        .contact-icon-img {
-            width: 32px;
-            height: 32px;
-            filter: brightness(0) invert(1);
-        }
-
-        .contact-card h4 {
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .contact-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
 
         /* Footer */
         footer {
@@ -873,7 +827,6 @@
                 <li><a href="#skills">Compétences</a></li>
                 <li><a href="#visualizations">Visualisations</a></li>
                 <li><a href="#projects">Projets</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="hamburger" onclick="toggleMenu()">
                 <span></span>
@@ -885,7 +838,6 @@
                 <a href="#skills" onclick="toggleMenu()">Compétences</a>
                 <a href="#visualizations" onclick="toggleMenu()">Visualisations</a>
                 <a href="#projects" onclick="toggleMenu()">Projets</a>
-                <a href="#contact" onclick="toggleMenu()">Contact</a>
             </div>
         </div>
     </nav>
@@ -905,7 +857,7 @@
                     <a href="./assets/ALEX_RAKOTOMALALA_CV.pdf" class="btn btn-primary" target="_blank">
                         📄 Télécharger CV
                     </a>
-                    <a href="#contact" class="btn btn-secondary">Me Contacter</a>
+                    <a href="mailto:rakotomalala.alex@gmail.com" class="btn btn-secondary">Me Contacter</a>
                 </div>
                 <div class="social-links">
                     <a href="mailto:rakotomalala.alex@gmail.com" class="social-link" title="Email">
@@ -973,49 +925,49 @@
                 <h3>🛠️ Technologies</h3>
                 <div class="skills-grid">
                     <div class="skill-item">
-                        <div class="skill-icon">✓</div>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="tech-icon">
                         <div class="skill-info">
                             <h4>Python</h4>
                             <span>Avancé</span>
                         </div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-icon">✓</div>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg" alt="R" class="tech-icon">
                         <div class="skill-info">
                             <h4>R</h4>
                             <span>Avancé</span>
                         </div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-icon">✓</div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/SAS_logo_horiz.svg" alt="SAS" class="tech-icon">
                         <div class="skill-info">
                             <h4>SAS</h4>
                             <span>Avancé</span>
                         </div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-icon">✓</div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" alt="Excel" class="tech-icon">
                         <div class="skill-info">
                             <h4>Excel</h4>
                             <span>Avancé</span>
                         </div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-icon">✓</div>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL" class="tech-icon">
                         <div class="skill-info">
                             <h4>SQL</h4>
                             <span>Intermédiaire</span>
                         </div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-icon">✓</div>
+                        <img src="https://logos-world.net/wp-content/uploads/2021/10/Tableau-Symbol.png" alt="Tableau" class="tech-icon">
                         <div class="skill-info">
                             <h4>Tableau</h4>
                             <span>Intermédiaire</span>
                         </div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-icon">✓</div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg" alt="Power BI" class="tech-icon">
                         <div class="skill-info">
                             <h4>Power BI</h4>
                             <span>Intermédiaire</span>
@@ -1145,36 +1097,7 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section-spacing">
-        <div class="section-title">
-            <h2>Contactez-moi</h2>
-            <p>N'hésitez pas à me contacter pour discuter de vos projets data</p>
-        </div>
-        <div class="contact-content">
-            <div class="contact-links">
-                <a href="mailto:rakotomalala.alex@gmail.com" class="contact-card fade-in">
-                    <div class="contact-icon">📧</div>
-                    <h4>Email</h4>
-                    <p>rakotomalala.alex@gmail.com</p>
-                </a>
-                <a href="https://www.linkedin.com/in/alexrakotomalala/" class="contact-card fade-in" target="_blank">
-                    <div class="contact-icon">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" class="contact-icon-img">
-                    </div>
-                    <h4>LinkedIn</h4>
-                    <p>Connectons-nous professionnellement</p>
-                </a>
-                <a href="https://github.com/Rako75" class="contact-card fade-in" target="_blank">
-                    <div class="contact-icon">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="contact-icon-img">
-                    </div>
-                    <h4>GitHub</h4>
-                    <p>Découvrez mes projets</p>
-                </a>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Footer -->
     <footer>
