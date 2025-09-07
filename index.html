@@ -73,12 +73,20 @@
         }
 
         .logo {
-            font-size: 1.75rem;
-            font-weight: 800;
-            background: var(--gradient-hero);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            filter: brightness(1.1);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover img {
+            filter: brightness(1.3);
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -656,8 +664,6 @@
             gap: 1rem;
         }
 
-
-
         /* Footer */
         footer {
             background: var(--secondary-bg);
@@ -821,9 +827,9 @@
     <!-- Navigation -->
     <nav class="nav-container">
         <div class="nav-content">
-        <div class="logo">
-        <img src="./assets/Alex_Rako_Signature.png" alt="Alex Rako Signature">
-        </div>            
+            <div class="logo">
+                <img src="./assets/Alex_Rako_Signature.png" alt="Alex Rako Signature">
+            </div>
             <ul class="nav-links">
                 <li><a href="#about">À Propos</a></li>
                 <li><a href="#skills">Compétences</a></li>
@@ -1057,7 +1063,6 @@
                     <p>Évolution du rating ELO de José Mourinho à travers 22 ans de management. Visualisation de ses pics de performance avec Porto, Chelsea, Inter, Real Madrid, Manchester United, Tottenham et AS Roma, incluant tous ses trophées majeurs.</p>
                 </div>
             </div>
-
 
             <div class="viz-item fade-in">
                 <img src="./assets/Florian Wirtz 23-24.png" alt="Florian Wirtz Performance 23-24" class="viz-image">
