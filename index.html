@@ -73,12 +73,19 @@
         }
 
         .logo {
-            font-size: 1.75rem;
-            font-weight: 800;
-            background: var(--gradient-hero);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(1.2);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -779,6 +786,10 @@
             .contact-links {
                 grid-template-columns: 1fr;
             }
+
+            .logo {
+                height: 40px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -814,6 +825,10 @@
             .project-card {
                 padding: 1.5rem;
             }
+
+            .logo {
+                height: 35px;
+            }
         }
     </style>
 </head>
@@ -821,7 +836,9 @@
     <!-- Navigation -->
     <nav class="nav-container">
         <div class="nav-content">
-            <div class="logo">Alex R.</div>
+            <div class="logo">
+                <img src="./assets/Alex_Rako_Signature.png" alt="Alex Rako Signature">
+            </div>
             <ul class="nav-links">
                 <li><a href="#about">À Propos</a></li>
                 <li><a href="#skills">Compétences</a></li>
@@ -932,13 +949,6 @@
             <div class="card skill-category fade-in">
                 <h3>🛠️ Technologies</h3>
                 <div class="skills-grid">
-                    <div class="skill-item">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="tech-icon">
-                        <div class="skill-info">
-                            <h4>Python</h4>
-                            <span>Avancé</span>
-                        </div>
-                    </div>
                     <div class="skill-item">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg" alt="R" class="tech-icon">
                         <div class="skill-info">
@@ -1329,4 +1339,11 @@
         });
     </script>
 </body>
-</html>
+</html>/python/python-original.svg" alt="Python" class="tech-icon">
+                        <div class="skill-info">
+                            <h4>Python</h4>
+                            <span>Avancé</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons
