@@ -21,11 +21,11 @@
             --border-color: #475569;
             --success-color: #10b981;
             --warning-color: #f59e0b;
-            
+
             --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             --gradient-card: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-            
+
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -856,6 +856,8 @@
                     <a href="./assets/ALEX_RAKOTOMALALA_CV.pdf" class="btn btn-primary" target="_blank">
                         📄 Télécharger CV
                     </a>
+                    <a href="mailto:rakotomalala.alex@gmail.com" class="btn btn-secondary">Me Contacter</a>
+                </div>
                 <div class="social-links">
                     <a href="mailto:rakotomalala.alex@gmail.com" class="social-link" title="Email">
                         📧
@@ -1045,7 +1047,7 @@
                     <p>Cartographie détaillée des 81 tirs d'Ousmane Dembélé en Ligue 1 2024-2025. Visualisation des zones de tir, Expected Goals (xG 16.06) et efficacité de conversion avec une distance moyenne de 14.3 mètres.</p>
                 </div>
             </div>
-            
+
             <div class="viz-item fade-in">
                 <img src="./assets/mourinho_elo_analysis.png" alt="Historique managérial de José Mourinho" class="viz-image">
                 <div class="viz-info">
@@ -1126,7 +1128,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="project-card fade-in">
                 <img src="./assets/bilan_net_England_2022.png" alt="Transferts Market Analysis" class="project-image">
                 <div class="project-details">
@@ -1158,10 +1160,10 @@
         function toggleMenu() {
             const mobileMenu = document.getElementById('mobileMenu');
             const hamburger = document.querySelector('.hamburger');
-            
+
             mobileMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
-            
+
             // Animate hamburger icon
             const spans = hamburger.querySelectorAll('span');
             if (hamburger.classList.contains('active')) {
@@ -1252,13 +1254,13 @@
                 const rect = hero.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
+
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                
+
                 const deltaX = (x - centerX) / centerX;
                 const deltaY = (y - centerY) / centerY;
-                
+
                 const profileImg = document.querySelector('.profile-img');
                 if (profileImg) {
                     profileImg.style.transform = `translate(${deltaX * 10}px, ${deltaY * 10}px) scale(1.05)`;
@@ -1278,7 +1280,7 @@
         window.addEventListener('load', function() {
             document.body.style.opacity = '0';
             document.body.style.transition = 'opacity 0.5s ease';
-            
+
             setTimeout(() => {
                 document.body.style.opacity = '1';
             }, 100);
